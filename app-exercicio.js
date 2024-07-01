@@ -1,75 +1,131 @@
-// let titulo = document.querySelector('h1');
-// titulo.innerHTML = 'Jogo do número Secreto !';
-
-// let paragrafo = documento.querySelector('p');
-// paragrafo.innerHTML = 'Escolha um número entre 1 a 10';
-
-let randomNumber = randomNumberGenerator()
+let numeroSecreto = gerarNumeroAleatorio();
+let tentativas = 1;
 
 function exibirTextoNaTela(tag, texto) {
-let campo = document.querySelector(tag);
-campo.innerHTML = texto;
+    let campo = document.querySelector(tag);
+    campo.innerHTML = texto;
 }
 
-exibirTextoNaTela('h1','Jogo do número Secreto !');
-exibirTextoNaTela('p','Escolha um número entre 1 a 10');
+function mensagemInicial(){
+    exibirTextoNaTela('h1', 'Jogo do número secreto');
+    exibirTextoNaTela('p', 'Escolha um número entre 1 e 10');
+
+}
+
+exibirTextoNaTela('h1', 'Jogo do número secreto');
+exibirTextoNaTela('p', 'Escolha um número entre 1 e 10');
+
 
 function verificarChute() {
     let chute = document.querySelector('input').value;
-    console.log(chute == randomNumber)
+    if(chute == numeroSecreto) {
+        exibirTextoNaTela('h1', 'ACERTOU');
+
+        let palavraTentativa = tentativas > 1 ? 'tentativas' : 'tentativa';
+        let mensagemDeTentativas = `com ${tentativas} ${palavraTentativa}`;
+
+        exibirTextoNaTela('p', `Você Descobriu ! ${mensagemDeTentativas}`);
+
+        document.getElementById('reiniciar').removeAttribute('disabled');
+    } else{
+        if(chute > numeroSecreto){
+            exibirTextoNaTela('p', `Seu Chute é maior que o numero secreto`);
+        } else {
+            exibirTextoNaTela('p', `Seu Chute é menor que o numero secreto`);
+        }
+        tentativas++
+        limparCampo();
+
+    }
+
+}
+    
+
+function gerarNumeroAleatorio() {
+    return parseInt(Math.random() * 10 + 1);
 }
 
-function randomNumberGenerator() {
-   return parseInt(Math.random() *10 + 1)
+function limparCampo(){
+    chute = document.querySelector('input')
+    chute.value = '';
 }
 
-// Criar uma função que exibe "Olá, mundo!" no console.
-
-function saudacao(){
-    console.log('Olá, Mundo');
+function reiniciarjogo() {
+    numeroSecreto = gerarNumeroAleatorio();
+    limparCampo();
+    tentativas = 1;
+    mensagemInicial()
+    document.getElementById('reiniciar').setAttribute('disabled', true)
 }
-saudacao()
 
-// Criar uma função que recebe um nome como parâmetro e exibe "Olá, [nome]!" no console.
 
-function saudacao(nome){
-    console.log(`Olá, ${nome}`);
+// Crie uma função que calcule o índice de massa corporal (IMC) de uma pessoa, a partir de sua altura, em metros, e peso, em quilogramas, que serão recebidos como parâmetro.
+
+function calculoImc(altura, peso){
+    let imc = peso / (altura *altura)
+    return imc
 }
-saudacao('junior')
+calculoImc(1.73, 45)
 
+// Crie uma função que calcule o valor do fatorial de um número passado como parâmetro.
 
-// Criar uma função que recebe um número como parâmetro e retorna o dobro desse número.
-
-function dobro(numero){
-    let dobroDe = numero *2
-    console.log(`o dobro de ${numero} é ${dobroDe}`);
+function fatorial(n) {
+    let resultado = 1;
+    let i = 1;
+  
+    while (i <= n) {
+      resultado *= i;                                                   //UM DIA EU ENTENDO
+      i++;
+    }
+  
+    console.log(resultado);
 }
-dobro(3)
+fatorial(5)
 
-// Criar uma função que recebe três números como parâmetros e retorna a média deles.
+// Crie uma função que converte um valor em dólar, passado como parâmetro, e retorna o valor equivalente em reais. Para isso, considere a cotação do dólar igual a R$4,80.
 
-function media(numero1, numero2, numero3){
-    let mediaDeTres = (numero1 + numero2 + numero3) / 3
-    console.log(`a média de ${numero1}, ${numero2}, ${numero3} é ${mediaDeTres}`);
+
+function conversor(reais){
+    let dolar = 4.80
+    reais = reais / dolar
+    console.log(reais)
 }
-media(3, 4, 6)
+conversor(60)
+
+// Crie uma função que mostre na tela a área e o perímetro de uma sala retangular, utilizando altura e largura que serão dadas como parâmetro.
+
+function perimetroArea(altura, largura){
+    area = altura * largura
+   let perimetro = 2 * (altura * largura)
+    console.log(`area: ${area} metros quadrados`)
+    console.log(`perimetro: ${perimetro} metros`)
+}
+perimetroArea(3.5, 5.8)
+
+// Crie uma função que mostre na tela a área e o perímetro de uma sala circular, utilizando seu raio que será fornecido como parâmetro. Considere Pi = 3,14.
+
+function circulo(raio){
+    let pi = 3.14
+    area = raio * pi
+    perimetro = (2 * pi) * raio
+    console.log(`Area de um circulo cujo o raio seja ${raio} é ${area}, e o perimetro é ${perimetro}`)
+}
+circulo(6)
+
+// Crie uma função que mostre na tela a tabuada de um número dado como parâmetro.
 
 
-// Criar uma função que recebe dois números como parâmetros e retorna o maior deles.
 
-function maior(numero1, numero2){
-    if(numero1 > numero2){
-        console.log(`o numero maior é o ${numero1}`)
-    } else {
-        console.log(`o numero maior é o ${numero2}`)
+function tabuada(n){
+    for (let index = 0; index < 11; index++) {
+        multiplicador = n * index
+        console.log(`${n} * ${index} = ${multiplicador}`)
     }
 }
-maior(3, 4)
+tabuada(10)
 
-// Criar uma função que recebe um número como parâmetro e retorna o resultado da multiplicação desse número por ele mesmo
 
-function mult(numero1){
-    let multiplicacao = numero1 * numero1
-    console.log(`O numero ${numero1} elevado ao quadrado é ${multiplicacao}`)
-}
-mult(3)
+
+
+
+
